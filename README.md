@@ -464,3 +464,55 @@ kalau panduan/alat tertentu memintanya (root patching/OCLP, kext unsigned
 tertentu, debug AMFI). Kalau entry Toggle SIP tidak diinginkan, set
 `UEFI > Drivers > ToggleSipEntry.efi > Enabled = false` — sama seperti
 ResetNvramEntry, entry langsung hilang dari picker.
+
+---
+
+## 15. Isi picker saat ini (snapshot config 2026)
+
+Tampilan: **OpenCanopy grafis** (`PickerMode = External`, `OpenCanopy.efi` ON)
+dengan tema `Acidanthera\GoldenGate` (folder
+`Resources/Image/Acidanthera/GoldenGate` ada, 22 ikon), resolusi `Max`,
+`PickerAudioAssist = false` (VoiceOver mati), chime `Auto` via `AudioDxe.efi`.
+`ShowPicker = true`, `Timeout = 5` detik → otomatis boot entri default.
+
+### Entry yang pasti tampil (dari driver)
+
+| Entry | Sumber | Status |
+|---|---|---|
+| **Toggle SIP** | `ToggleSipEntry.efi` | tampil (icon Tool) |
+| Reset NVRAM | `ResetNvramEntry.efi` | **tidak tampil** (driver OFF) |
+| OpenShell / EFI Shell | `Misc > Tools` | tidak ada (array kosong, `OpenShell.efi` juga tidak ada) |
+
+### Entry boot (hasil scan disk, `ScanPolicy = 0`)
+
+| Kategori | Tampil? | Keterangan |
+|---|---|---|
+| macOS terpasang (APFS) | ya | APFS built-in + `EnableJumpstart = true` |
+| Installer macOS / USB installer | ya | |
+| Recovery macOS | ya | entry auxiliary, terlihat karena `HideAuxiliary = false` |
+| Snapshot Time Machine | ya | auxiliary |
+| Windows Boot Manager | ya, kalau ada | |
+| Linux / EFI loader lain | ya, kalau ada | `ScanPolicy = 0` memindai semua device & filesystem |
+| Volume HFS+ | ya | via `HfsPlus.efi` |
+| Volume FileVault | ya | muncul ikon Lock/Password |
+
+`Misc > Entries` dan `BlessOverride` kosong, jadi tidak ada entry custom.
+`LauncherOption = Disabled`, jadi OpenCore tidak menambahkan entry dirinya ke
+boot menu firmware (hanya entry yang sudah ada).
+
+### Perilaku keyboard
+
+- `Ctrl+Enter` = set entri terpilih sebagai default (`AllowSetDefault = true`)
+- `Space` = menampilkan entry auxiliary — saat ini tidak perlu karena
+  `HideAuxiliary = false`
+- `PollAppleHotKeys = true` → hotkey ala Apple aktif: `Cmd+R` (Recovery),
+  `Cmd+S`, `Cmd+V`, dan **`Cmd+Opt+P+R` (reset NVRAM)**.
+
+Catatan: entry "Reset NVRAM" sudah disembunyikan, tapi hotkey
+`Cmd+Opt+P+R` masih bisa mereset NVRAM selama `PollAppleHotKeys = true`. Kalau
+ingin benar-benar tidak ada jalan reset NVRAM dari picker, set
+`Misc > Boot > PollAppleHotKeys = false` (efek samping: hotkey `Cmd+R`/`Cmd+V`
+ikut mati).
+
+Kalau ingin tampilan teks (bukan grafis): `Misc > Boot > PickerMode = Builtin`
+(OpenCanopy tidak dipakai).
