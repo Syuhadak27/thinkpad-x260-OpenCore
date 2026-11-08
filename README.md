@@ -3,6 +3,9 @@
 > **OpenCore Source & Guide:** [Dortania OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/) | OpenCore 1.0.4
 > Original EFI Base: ThinkPad X260 6th Gen Skylake
 
+> **Download macOS Sequoia Installer (from this repo):**
+> [📥 macOS Sequoia - Google Drive](https://drive.google.com/file/d/1x5jg_bDay35TtsH0kR7J_OW9Ticzzknx/view?usp=drivesdk)
+
 EFI ini sudah tested work di Lenovo ThinkPad X260 untuk **macOS Ventura, Sonoma & Sequoia 15.x**.
 
 ## Screenshots Sequoia
@@ -20,6 +23,11 @@ EFI ini sudah tested work di Lenovo ThinkPad X260 untuk **macOS Ventura, Sonoma 
 - **Audio:** Realtek ALC293
 - **Trackpad:** Synaptics with Gestures
 
+## Download
+
+- **EFI:** Download dari repo ini (Code > Download ZIP)
+- **macOS Sequoia Installer:** [Google Drive Link](https://drive.google.com/file/d/1x5jg_bDay35TtsH0kR7J_OW9Ticzzknx/view?usp=drivesdk)
+
 ## What's Works
 
 - [x] Full Graphics Acceleration
@@ -27,53 +35,31 @@ EFI ini sudah tested work di Lenovo ThinkPad X260 untuk **macOS Ventura, Sonoma 
 - [x] Audio, Mic, Camera
 - [x] Keyboard, Fn Keys, Backlight
 - [x] Trackpad + Gestures
-- [x] Battery Indicator & Power Management
-- [x] Sleep / Wake / Lid
-- [x] All USB Ports
+- [x] Battery & Power Management
+- [x] Sleep / Wake
 
 ## IMPORTANT - WiFi Fix for Sequoia 15.x
 
-Di macOS Sequoia, `AirportItlwm.kext` tidak stabil dan akan muncul `Wi-Fi: No hardware installed`.
+Di Sequoia, `AirportItlwm.kext` bikin `Wi-Fi: No hardware installed`.
 
-**Fix yang work di repo ini (sudah di-apply di EFI ini):**
+**Fix yang work di EFI ini:**
 
-1.  Gunakan `itlwm.kext v2.3.0 Stable` (bukan AirportItlwm)
-2.  Di `config.plist` > `Kernel > Add` : 
-    - `itlwm.kext` = **Enabled**
-    - `IOSkywalkFamily.kext` = **Disabled**
-    - `IO80211FamilyLegacy.kext` = **Disabled**
-3.  Reset NVRAM setelah ganti kext (Tekan Spasi di OpenCore Picker > Reset NVRAM)
-4.  Gunakan `HeliPort.app` untuk konek WiFi (ada di folder HeliPort repo ini)
-
-Jika HeliPort muncul `itlwm is not running` berarti NVRAM belum di-reset.
+1. Pakai `itlwm.kext v2.3.0 Stable`
+2. Di config.plist: `itlwm` = Enabled, `IOSkywalkFamily` & `IO80211FamilyLegacy` = Disabled
+3. Reset NVRAM (Spasi di OpenCore Picker > Reset NVRAM)
+4. Pakai `HeliPort.app` untuk konek WiFi (ada di repo ini)
 
 ## Cara Konek WiFi & Auto Start
 
-App HeliPort sudah ada di repo ini: `HeliPort/HeliPort.app`
+1. Copy `HeliPort.app` ke `/Applications`
+2. Buka dan konek WiFi
 
-1.  Copy `HeliPort.app` ke `/Applications`
-2.  Buka dan konek ke WiFi kamu
-
-**Biar Auto Start di Sequoia:**
-
-HeliPort versi baru tidak ada setting `Launch at login` di dalam Preferences (hanya ada setting update).
-
-Caranya pakai Login Items macOS:
-`System Settings` > `General` > `Login Items` > klik `+` > pilih `HeliPort` > Open
-
-Sekarang tiap boot, HeliPort auto jalan di menu bar dan auto konek.
-
-## Installation
-
-1.  Download EFI dari repo ini
-2.  Copy ke partisi EFI USB Installer
-3.  Set BIOS: Security > Secure Boot Disabled, Config > Thunderbolt Disabled
-4.  Boot via F12 > Install macOS
+**Auto Start di Sequoia:**
+`System Settings` > `General` > `Login Items` > `+` > Add `HeliPort`
 
 ## Credits
 
 - Dortania Team
-- OpenIntelWireless Team (itlwm & HeliPort)
-- Acidanthera
+- OpenIntelWireless (itlwm & HeliPort)
 
 Enjoy Sequoia on X260!
