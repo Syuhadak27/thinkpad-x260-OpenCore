@@ -1,7 +1,8 @@
 # ThinkPad X260 - OpenCore - Sequoia
 
 > **OpenCore Source & Guide:** [Dortania OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/) | OpenCore 1.0.4
-> Original EFI Base: ThinkPad X260 6th Gen Skylake
+> Original EFI Base: [ThinkPad X260 6th Gen Skylake](https://github.com/neelakurinji123/Thinkpad-X260-OpenCore)
+
 
 > **Download macOS Sequoia Installer (from this repo):**
 > [📥 macOS Sequoia - Google Drive](https://drive.google.com/file/d/1x5jg_bDay35TtsH0kR7J_OW9Ticzzknx/view?usp=drivesdk)
@@ -10,8 +11,8 @@ EFI ini sudah tested work di Lenovo ThinkPad X260 untuk **macOS Ventura, Sonoma 
 
 ## Screenshots Sequoia
 
-![ss_1](ss_1.png)
-![ss_2](ss_2.png)
+![Screenshot Sequoia 1](images/sequoia_1.png)
+![Screenshot Sequoia 2](images/sequoia_2.png)
 
 ## Laptop Specs
 
